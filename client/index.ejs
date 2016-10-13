@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>GitHub Grabr</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-2'>
+            </div>
+            <div class='col-md-8'>
+                <div class='row'>
+                  <div class='col-md-3'></div>
+
+                <div class="col-md-6 content">
+                  <h2>GitHub Grabr</h2>
+                  <h3>Hello <%= name %>!</h3>
+                  <a href='/logout'>logout</a>
+                    <input type="text" class="form-control" id="usernameVal" placeholder="Enter GitHub Username">
+                    <button type="button" class="btn btn-success" id="fetch">Fetch</button>
+                </div>
+                <div class='col-md-3'></div>
+              </div>
+                <table class="top-repos">
+                    <tr>
+                        <th>Stars</th>
+                        <th>Repository Name</th>
+                        <th>Username</th>
+                        <th>Grabbed By</th>
+                    </tr>
+                </table>
+            </div>
+            <div class='col-md-2'>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#fetch').click(function(e) {
+            e.preventDefault();
+            let $username = $('#usernameVal').val();
+            $('#usernameVal').val('');
+            gitHubCall($username).then(postToServer).then(res => {
+                setTimeout(() => {
+                    $(".top-repos").find("tr:gt(0)").remove();
+                    populatePage()
+                }, 500);
+            })
+        })
+
+        let gitHubCall = function(username) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: `https://api.github.com/users/${username}/repos`,
+                    // headers: {
+                    //     'Authorization': `token ${githubKey}`
+                    // },
+                    success: function(result) {
+                        resolve(result);
+                    }
+                });
+            })
+        }
+
+        let postToServer = function(data) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: 'POST',
+                    url: `/repos/import`,
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(result) {
+                        console.log(result)
+                        resolve(result);
+                    }
+                });
+            })
+        }
+
+        let populatePage = function() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: `/repos`,
+                    success: function(result) {
+                        resolve(
+                            result.forEach(item => {
+                                $(".top-repos").append(`<tr>
+                                                          <td>${item.stars}</td>
+                                                          <td><a href="https://github.com/${item.username}/${item.repo}">${item.repo}</a></td>
+                                                          <td>${item.username}</td>
+                                                          <td>${item.fetchedBy}</td>
+                                                        </tr>`);
+                            })
+                        )
+                    }
+                });
+            })
+        }
+
+        $(document).ready(function() {
+            populatePage()
+        })
+    </script>
+</body>
+
+</html>

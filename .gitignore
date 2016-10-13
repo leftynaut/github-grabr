@@ -1,0 +1,5 @@
+node_modules/
+github-fetcher.sqlite3
+config.js
+public/key.js
+server/secret.js
