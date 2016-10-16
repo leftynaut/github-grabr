@@ -6,7 +6,6 @@ var path = require('path');
 var db = require('../db');
 var Repo = require('../models/Repos');
 var User = require('../models/Users');
-var vars = require(`../config`);
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 
