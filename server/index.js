@@ -11,7 +11,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 passport.use(new GitHubStrategy({
         clientID: 'f8981b5dd5e3d2489d24',
         clientSecret: process.env.ghSecret,
-        callbackURL: 'http://localhost:4040/login/github/return'
+        callbackURL: '/login/github/return'
     },
     function(accessToken, refreshToken, profile, cb) {
         let query = {
@@ -138,8 +138,3 @@ app.get('/', loggedIn, function(req, res) {
         name: req.user.displayName
     });
 });
-
-
-var port = process.env.PORT || 4040;
-app.listen(port);
-console.log(`Listening on port ${port}`);

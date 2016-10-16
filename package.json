@@ -1,13 +1,11 @@
 {
   "name": "github-grabr",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www"
   },
-  "author": "",
+  "author": "Michael Lefkowitz",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
@@ -19,8 +17,5 @@
     "npm": "^3.10.8",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.8.1"
   }
 }
