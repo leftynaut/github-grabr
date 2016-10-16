@@ -12,7 +12,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 passport.use(new GitHubStrategy({
         clientID: 'f8981b5dd5e3d2489d24',
         clientSecret: process.env.ghSecret,
-        callbackURL: '/login/github/return'
+        callbackURL: 'https://github-grabr.herokuapp.com/login/github/return'
     },
     function(accessToken, refreshToken, profile, cb) {
         let query = {
