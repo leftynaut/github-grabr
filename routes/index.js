@@ -7,7 +7,7 @@ function authCheck(req, res, next) {
   if (req.user) {
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/auth');
   }
 }
 
@@ -16,3 +16,5 @@ router.get('/', authCheck, (req, res) => {
     name: req.user.displayName
   });
 });
+
+module.exports = router

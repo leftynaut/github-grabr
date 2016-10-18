@@ -6,7 +6,7 @@ const router = express.Router();
 const Repo = require('../models/Repos');
 const User = require('../models/Users');
 
-router.post('/repos/import', (req, res) => {
+router.post('/import', (req, res) => {
   let data = req.body;
   let dataArray = [];
   data.forEach(datum => {
@@ -26,7 +26,7 @@ router.post('/repos/import', (req, res) => {
   res.send('Done!');
 });
 
-router.get('/repos', (req, res) => {
+router.get('/', (req, res) => {
   Repo.find()
     .sort({
       'stars': -1
@@ -36,3 +36,5 @@ router.get('/repos', (req, res) => {
       res.send(data);
     })
 });
+
+module.exports = router

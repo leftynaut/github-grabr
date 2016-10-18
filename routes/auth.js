@@ -8,18 +8,18 @@ router.get('/', (req, res) => {
   res.render('login');
 });
 
-router.get('/github',
-  passport.authenticate('github'));
+router.route('/github')
+  .get(passport.authenticate('github'));
 
-router.get('/github/return',
-  passport.authenticate('github', {
+router.route('/github/return')
+  .get(passport.authenticate('github', {
+    successRedirect: '/',
     failureRedirect: '/auth'
-  }),
-  (req, res) => {
-    res.redirect('/');
-  });
+  }));
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
+
+module.exports = router
