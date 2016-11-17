@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
@@ -19,7 +17,7 @@ router.route('/github/return')
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  res.redirect('/auth');
 });
 
 module.exports = router
