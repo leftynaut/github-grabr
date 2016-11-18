@@ -7,7 +7,7 @@ module.exports = function () {
   passport.use(new GitHubStrategy({
           clientID: 'f8981b5dd5e3d2489d24',
           clientSecret: process.env.GH_SECRET,
-          callbackURL: '/auth/github/return'
+          callbackURL: 'https://github-grabr.herokuapp.com/auth/github/return'
       },
       (accessToken, refreshToken, profile, cb) => {
           let query = {
