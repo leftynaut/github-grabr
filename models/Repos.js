@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const repoSchema = new Schema({
+const repoSchema = new mongoose.Schema({
   unique: {type: String, unique: true},
   repo: String,
   username: String,
@@ -11,5 +9,5 @@ const repoSchema = new Schema({
   created_at: { type: Date, default: Date.now }
 });
 
-var Repo = mongoose.model('Repo', repoSchema);
+const Repo = mongoose.model('Repo', repoSchema);
 module.exports = Repo;
