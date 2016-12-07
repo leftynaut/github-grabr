@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+  // app.use(require('morgan')('dev'));
+}
+
 const passport = require('passport');
 const session = require('express-session');
 
